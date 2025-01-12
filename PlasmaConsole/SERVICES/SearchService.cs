@@ -31,5 +31,48 @@ namespace PlasmaLite.SERVICES
         > Display search results in the console in a readable format.
 
         */
+
+        private readonly List<IPlatformSearchService> _platformSearchServices;
+        public List<Song> SearchResults { get; private set; } = new List<Song>();
+
+        public SearchService(PlatformServiceFactory platformServiceFactory)
+        {
+            _platformSearchServices = new List<IPlatformSearchService>
+            {
+                platformServiceFactory.GetPlatformSearchService(Platform.Spotify),
+                platformServiceFactory.GetPlatformSearchService(Platform.Youtube),
+                platformServiceFactory.GetPlatformSearchService(Platform.Soundcloud),
+            };
+        }
+
+        public async Task SearchAsync(string query)
+        {
+            SearchResults.Clear();
+
+            var searchTasks = _platformSearchServices
+                .Where(service => service != null)
+                .Select(service => service.SearchAsync(query));
+
+            var results = await Task.WhenAll(searchTasks);
+
+            foreach (var resultList in results)
+            {
+                SearchResults.AddRange(resultList);
+            }
+
+            if (SearchResults.Any())
+            {
+                Console.WriteLine("\nSearch Results:");
+                int i = 1;
+                foreach (var song in SearchResults)
+                {
+                    Console.WriteLine($"{i++}. {song.Artist} - {song.Title} ({song.Platform})");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No results found.");
+            }
+        }
     }
 }

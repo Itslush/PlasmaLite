@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PlasmaLite
+﻿namespace PlasmaLite
 {
     internal class Playlist
     {
@@ -20,5 +14,10 @@ namespace PlasmaLite
         > PlatformId
 
         */
+
+        public string? Name { get; set; }
+        public List<Song>? Songs { get; set; }
+        public Platform Platform { get; set; }
+        public string? PlatformId { get; set; }
     }
 }

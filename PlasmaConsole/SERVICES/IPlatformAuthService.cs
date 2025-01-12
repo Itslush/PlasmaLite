@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlasmaLite.SERVICES
 {
-    internal class IPlatformAuthService
+    internal interface IPlatformAuthService
     {
         /*
 
@@ -19,5 +19,9 @@ namespace PlasmaLite.SERVICES
         > string GetAccessToken().
 
         */
+
+        Task LoginAsync();
+        void Logout();
+        string GetAccessToken();
     }
 }

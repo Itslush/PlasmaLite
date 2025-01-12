@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PlasmaLite
+﻿namespace PlasmaLite
 {
     internal class Song
     {
@@ -23,6 +17,21 @@ namespace PlasmaLite
         > StreamUrl
         > ArtworkUrl
 
+        Define enum:
+
+        > Platform: SC, SP, YT
+
         */
+
+        public string? Title { get; set; }
+        public string? Artist { get; set; }
+        public string? Album { get; set; }
+        public string? PlatformId { get; set; }
+        public string? StreamUrl { get; set; }
+        public string? ArtworkUrl { get; set; }
+        public TimeSpan Duration { get; set; }
+        public Platform Platform { get; set; }
     }
+
+    public enum Platform { Soundcloud, Spotify, Youtube}
 }

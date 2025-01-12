@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlasmaLite.SERVICES
 {
-    internal class IPlatformSearchService
+    internal interface IPlatformSearchService
     {
         /*
 
@@ -16,5 +16,7 @@ namespace PlasmaLite.SERVICES
         > SearchAsync(string query).
 
         */
+
+        Task<List<Song>> SearchAsync(string query);
     }
 }
